@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Auth Boilerplate</title>
+        <title>BHAG</title>
     </head>
     <body>
         <header>
             <nav>
+                <a href="/">Home</a>
                <% if (currentUser) { %>
                     <a href="/auth/logout">Logout</a>
                     <a href="/profile">Profile</a>
@@ -16,7 +17,7 @@
             </nav>
         </header>
         <div class="container">
-            <h1>Authenticating Users 👩🏻‍💻</h1>
+            <h1> Team Tracker</h1>
             <%- body %>
         </div>
     </body>

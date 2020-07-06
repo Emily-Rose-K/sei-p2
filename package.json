@@ -1,7 +1,6 @@
 {
   "name": "express-auth-526",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -23,6 +22,16 @@
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "pg": "^8.2.1",
-    "sequelize": "^5.21.0"
-  }
+    "sequelize": "^5.22.3"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Emily-Rose-K/sei-p2.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Emily-Rose-K/sei-p2/issues"
+  },
+  "homepage": "https://github.com/Emily-Rose-K/sei-p2#readme",
+  "description": ""
 }

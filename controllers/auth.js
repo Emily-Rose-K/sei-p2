@@ -13,12 +13,13 @@ router.get('/register', function(req, res) {
     res.render('auth/register')
 })
 // register post route
-router.post('/register', function(req, res) {
+router.post('/register', function(req, res, next) {
     db.user.findOrCreate({
         where: {
             email: req.body.email
         }, defaults: {
-            name: req.body.name,
+            firstName: req.body.fistName,
+            lastName: req.body.lastName,
             password: req.body.password
         }
     }).then(function([user, created]) {
@@ -29,7 +30,7 @@ router.post('/register', function(req, res) {
             passport.authenticate('local', {
                 successRedirect: '/profile',
                 successFlash: 'Welcome to the shit show!'
-            }) (req, res);
+            }) (req, res, next);
         } else {
         // else if user is found
         console.log('User email already exists. 💥')
@@ -56,10 +57,7 @@ router.post('/login', function(req, res, next) {
         if(!user) {
             req.flash('error', 'Invalid username or password. 🧞')
             // save to our user session no username
-            req.session.save(function(){
                 return res.redirect('/auth/login');
-            });
-            // redirect our user to try logging in again
         }
         if (error) {
             return next(error);
@@ -71,18 +69,11 @@ router.post('/login', function(req, res, next) {
             req.flash('success', 'You are now logged in.')
             // if success save session and redirect user 
             req.session.save(function() {
-                return res.redirect('/');
+                return res.redirect('/profile');
             })
         });
     })(req, res, next);
 });
-
-router.post('/login', passport.authenticate('local', {
-    successRedirct: '/',
-    failureRedirect: '/auth/login',
-    successFlash: 'Welcome to our app! 🌈',
-    failureFlash: 'Invalid username or password. 🧞'
-}));
 
 
 router.get('/logout', function(req, res) {
