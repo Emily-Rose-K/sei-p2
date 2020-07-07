@@ -7,7 +7,8 @@ module.exports = (sequelize, DataTypes) => {
     userId: DataTypes.INTEGER
   }, {});
   goal.associate = function(models) {
-    // associations can be defined here
+    models.goal.hasMany(models.project);
+    models.goal.belongsTo(models.team);  
   };
   return goal;
 };

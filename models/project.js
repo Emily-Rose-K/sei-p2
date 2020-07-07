@@ -7,7 +7,8 @@ module.exports = (sequelize, DataTypes) => {
     userId: DataTypes.INTEGER
   }, {});
   project.associate = function(models) {
-    // associations can be defined here
+    models.project.hasMany(models.milestone);
+    models.project.belongsTo(models.user);    
   };
   return project;
 };

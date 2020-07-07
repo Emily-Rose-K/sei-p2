@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     userId: DataTypes.INTEGER
   }, {});
   milestone.associate = function(models) {
-    // associations can be defined here
+    models.milestone.belongsTo(models.project);
   };
   return milestone;
 };
