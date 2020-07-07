@@ -1,28 +1,25 @@
-// configure dotenv
+
 require('dotenv').config();
-// require express and set up express app instance (server engine. engine engine engine 🚂)
+
 const Express = require('express');
 const app = Express();
-// require and set view engine using ejs
 const ejsLayouts = require('express-ejs-layouts');
-// set app to use false urlencoding
-app.use(Express.urlencoded({extended: false})); // look for Anna's slack thread on the stack overflow explanation
-// set app public directory for use
+
+app.use(Express.urlencoded({extended: false})); 
 app.use(Express.static(__dirname + '/public'));
-// set app ejsLayouts for render
 app.set('view engine', 'ejs');
 app.use(ejsLayouts);
 app.use(require('morgan')('dev'));
-// require all middleware for app/authentication
-// helmet, morgan, passport, and custom middleware, express-sessions, sequelize sessions, flash
+
 const helmet = require('helmet');
 const session = require('express-session');
-const flash = require('flash');
+const flash = require('connect-flash');
 const passport = require('./config/ppConfig');
 const db = require('./models');
 const isLoggedIn = require('./middleware/isLoggedIn');
+
 app.use(helmet());
-// want add a link to our customer middleware for isLoggedIn
+
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 // create new instance of class Sequilize Store

@@ -23,9 +23,6 @@ module.exports = {
       color: {
         type: Sequelize.STRING
       },
-      nickName: {
-        type: Sequelize.STRING
-      },
       teamId: {
         type: Sequelize.INTEGER
       },
