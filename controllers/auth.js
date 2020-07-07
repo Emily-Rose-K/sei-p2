@@ -4,6 +4,47 @@ const db = require('../models');
 const flash = require('connect-flash');
 const passport = require("../config/ppConfig");
 
+
+
+//get started flow
+router.get('/get_started', function(req, res) {
+    res.render('auth/get_started')
+})
+
+
+
+
+
+
+// team register get route
+router.get('/team_register', function(req, res) {
+    res.render('auth/team_register');
+})
+// team register post route
+router.post('/team_register', function(req, res) {
+    db.team.findOrCreate({
+        where: {
+            name: req.body.name
+        }
+    }).then(function([team, created]) {
+        //if team created
+        if(created) {
+            console.log("Yay, you made a team! 👏🏼")
+            //intive people needs to send emails
+            res.redirect('/profile')
+        } else {
+            console.log("That name is taken 🖕🏼")
+            req.flash(`Looks like there is already a team called ${req.body.name}, try a different name.`)
+            res.redirect('/auth/team_register');
+        } 
+    }).catch(function(err) {
+        console.log(`Error found. \nMessage: ${err.message}. \nPlease review - ${err}`);
+        req.flash('error', err.message);
+        res.redirect('/auth/register');
+    })
+})
+
+
 // register get route
 router.get('/register', function(req, res) {
     res.render('auth/register');
