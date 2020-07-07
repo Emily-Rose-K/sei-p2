@@ -3,8 +3,8 @@ const router = express.Router();
 const db = require('../models');
 
 
-// create goal
+// create milestone
 
-// delete goal
+// delete milestone
 
-// update goal
+// update milestone

@@ -1,19 +1,26 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../models');
-const flash = require('connect-flash');
 const passport = require("../config/ppConfig");
+const emailjs = require('emailjs-com');
 
 
+var data = {
+    service_id: 'defualt_service',
+    template_id: 'project_tracker',
+    user_id: `${process.env.USER_ID_EMAILJS}`,
+};
 
 //get started flow
 router.get('/get_started', function(req, res) {
+            emailjs.send(data.service_id, data.template_id, data.user_id)
+            .then(function(response) {
+                console.log('SUCCESS!⭐️', response.status, response.text);
+            }, function(err) {
+                console.log('FAILED... 💥', err);
+            });
     res.render('auth/get_started')
 })
-
-
-
-
 
 
 // team register get route
@@ -30,7 +37,6 @@ router.post('/team_register', function(req, res) {
         //if team created
         if(created) {
             console.log("Yay, you made a team! 👏🏼")
-            //intive people needs to send emails
             res.redirect('/profile')
         } else {
             console.log("That name is taken 🖕🏼")
@@ -63,7 +69,7 @@ router.post('/register', function(req, res) {
         if (created) {
             console.log("User created! 🎉");
             passport.authenticate('local', {
-                successRedirect: '/profile',
+                successRedirect: '/team_register',
                 successFlash: 'Thanks for signing up!'
             })(req, res);
         } else {
