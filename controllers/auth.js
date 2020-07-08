@@ -6,8 +6,8 @@ const passport = require("../config/ppConfig");
 
  
 const client = new SMTPClient({
-    user: 'GMAILUSER',
-    password: 'GMAILPSWD',
+    user: process.env.GMAILUSER,
+    password: process.env.GMAILPSWD,
     host: 'smtp.gmail.com',
     port: '465',
     ssl: true,
@@ -15,18 +15,7 @@ const client = new SMTPClient({
 
 //get started flow
 router.get('/get_started', function(req, res) {
-    client.send(
-        {
-            text: 'i hope this works',
-            from: 'gmailuser',
-            to: 'e.krauss27@gmail.com',
-
-            subject: 'testing emailjs',
-        },
-        (err, message) => {
-            console.log(err, "🎷" || message);
-        }
-    );
+    res.render('auth/get_started')
 })
 
 
@@ -44,6 +33,16 @@ router.post('/team_register', function(req, res) {
         //if team created
         if(created) {
             console.log("Yay, you made a team! 👏🏼")
+            client.send(
+                {
+                    text: 'new fix',
+                    from: 'gmailuser',
+                    to: `${req.body.email}`,
+        
+                    subject: 'testing emailjs',
+                }, (err, message) => {
+                console.log(err, "🎷" || message);
+            })
             res.redirect('/profile')
         } else {
             console.log("That name is taken 🖕🏼")
@@ -76,7 +75,7 @@ router.post('/register', function(req, res) {
         if (created) {
             console.log("User created! 🎉");
             passport.authenticate('local', {
-                successRedirect: '/team_register',
+                successRedirect: '/auth/team_register',
                 successFlash: 'Thanks for signing up!'
             })(req, res);
         } else {
