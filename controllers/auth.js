@@ -1,25 +1,32 @@
+const { SMTPClient } = require('emailjs')
 const express = require('express');
 const router = express.Router();
 const db = require('../models');
 const passport = require("../config/ppConfig");
-const emailjs = require('emailjs-com');
 
-
-var data = {
-    service_id: 'defualt_service',
-    template_id: 'project_tracker',
-    user_id: `${process.env.USER_ID_EMAILJS}`,
-};
+ 
+const client = new SMTPClient({
+    user: 'GMAILUSER',
+    password: 'GMAILPSWD',
+    host: 'smtp.gmail.com',
+    port: '465',
+    ssl: true,
+});
 
 //get started flow
 router.get('/get_started', function(req, res) {
-            emailjs.send(data.service_id, data.template_id, data.user_id)
-            .then(function(response) {
-                console.log('SUCCESS!⭐️', response.status, response.text);
-            }, function(err) {
-                console.log('FAILED... 💥', err);
-            });
-    res.render('auth/get_started')
+    client.send(
+        {
+            text: 'i hope this works',
+            from: 'gmailuser',
+            to: 'e.krauss27@gmail.com',
+
+            subject: 'testing emailjs',
+        },
+        (err, message) => {
+            console.log(err, "🎷" || message);
+        }
+    );
 })
 
 
