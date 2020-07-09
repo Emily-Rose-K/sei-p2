@@ -34,6 +34,9 @@ router.post('/team_register', function(req, res) {
         //if team created
         if(created) {
             console.log("Yay, you made a team! 👏🏼")
+            // find the current user
+            // find the current team
+            // add that user to the team that was created.
             client.send(
                 {
                     text: `${message}`,
@@ -44,10 +47,10 @@ router.post('/team_register', function(req, res) {
                 }, (err, message) => {
                 console.log(err, "🎷" || message);
             })
-            db.user.findOne().then(function(user) {
-                team.add(user);
-            });
-            res.redirect('/profile')
+            //find team
+       
+            // redirect to team id
+            res.redirect(`/${team.id}`)
         } else {
             console.log("That name is taken 🖕🏼")
             req.flash(`Looks like there is already a team called ${req.body.name}, try a different name.`)
@@ -123,7 +126,10 @@ router.post('/login', function(req, res, next) {
             req.flash('success', 'You are validated and logged in.');
             // if success save session and redirect user
             req.session.save(function() {
-                return res.redirect('/profile');
+                //find team id
+                
+                //redirect to team id
+                return res.redirect('/team')
             });
         })
     })(req, res, next);
@@ -133,6 +139,7 @@ router.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
 });
+
 
 // export router
 module.exports = router;

@@ -1,14 +1,14 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('projects', {
+    return queryInterface.createTable('goals', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
+      description: {
         type: Sequelize.TEXT
       },
       dateDue: {
@@ -17,8 +17,11 @@ module.exports = {
       owner: {
         type: Sequelize.STRING
       },
-      userId: {
+      teamId: {
         type: Sequelize.INTEGER
+      },
+      isDone: {
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,
@@ -31,6 +34,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('projects');
+    return queryInterface.dropTable('goals');
   }
 };

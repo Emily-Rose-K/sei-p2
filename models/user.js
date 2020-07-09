@@ -40,16 +40,7 @@ module.exports = function(sequelize, DataTypes) {
                     msg: 'Password is of incorrect length. Double check character number.'
                 }
             }
-        },
-        birthday: {
-          type: DataTypes.DATE,
-        },
-        nickName: {
-            type: DataTypes.STRING,
-          },
-        color: {
-          type: DataTypes.STRING,
-        },
+        }
 
     }, {
         hooks: {
@@ -63,10 +54,14 @@ module.exports = function(sequelize, DataTypes) {
         }
     });
     user.associate = function(models) {
-      models.user.hasMany(models.goal);
-      models.user.belongsTo (models.team);
+      models.user.hasMany(models.project);
+      models.user.belongsTo(models.team);
     }
 
+
+    user.prototype.getFullName = function(){
+        return this.firstName + ' ' + this.lastName
+    }
 
     // validPassword definition to validate password at user login
     user.prototype.validPassword = function(passwordTyped) {

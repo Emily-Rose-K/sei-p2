@@ -4,11 +4,12 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.TEXT,
     dateDue: DataTypes.DATEONLY,
     owner: DataTypes.STRING,
-    userId: DataTypes.INTEGER
+    teamId: DataTypes.INTEGER,
+    isDone: DataTypes.BOOLEAN
   }, {});
   goal.associate = function(models) {
-    models.goal.hasMany(models.project);
-    models.goal.belongsTo(models.team);  
+    models.goal.belongsTo(models.team)
+    models.goal.hasMany(models.project)
   };
   return goal;
 };

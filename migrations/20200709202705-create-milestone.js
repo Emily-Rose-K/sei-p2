@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
+      description: {
         type: Sequelize.TEXT
       },
       dateDue: {
@@ -20,10 +20,10 @@ module.exports = {
       isDone: {
         type: Sequelize.BOOLEAN
       },
-      owner: {
-        type: Sequelize.STRING
-      },
       userId: {
+        type: Sequelize.INTEGER
+      },
+      projectId: {
         type: Sequelize.INTEGER
       },
       createdAt: {

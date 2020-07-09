@@ -4,8 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING
   }, {});
   team.associate = function(models) {
-    models.team.hasMany(models.user);
-    models.team.hasMany(models.goal);
+    // associations can be defined here
   };
   return team;
 };

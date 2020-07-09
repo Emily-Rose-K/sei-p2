@@ -57,15 +57,19 @@ app.get('/', function(req, res) {
     res.render('index');
 })
 
-app.get('/profile', isLoggedIn, function(req, res) {
-    res.render('profile')
-})
-
 // include  controllers
 app.use('/auth', require('./controllers/auth'));
 app.use('/goal', require('./controllers/goal'));
 app.use('/project', require('./controllers/project'));
 app.use('/milestone', require('./controllers/milestone'));
+
+
+app.get('/:team', isLoggedIn, function(req, res) {
+    //find team where id = req.params.team
+    db.team.findOne({})
+    req.params.team
+    res.render('team', {team:  })
+})
 
 
 app.listen(process.env.PORT || 3000, function() {

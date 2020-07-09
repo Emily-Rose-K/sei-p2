@@ -4,6 +4,7 @@ const db = require('../models');
 
 
 
+
 router.get('/new', function (req, res) {
     res.render('goal/new');
 })
@@ -11,15 +12,18 @@ router.get('/new', function (req, res) {
 // create goal
 
 router.post('/new', function (req, res) {
-    // find the team I'm on
-    //create a goal for that team
-    //render the profile page
+   db.goal.create ({
+       description: req.body.description,
+       dueDate: req.body.dueDate
+   })
 })
 
 
 // delete goal
 
 // update goal
+
+
 
 
 module.exports = router;

@@ -17,12 +17,6 @@ module.exports = {
       email: {
         type: Sequelize.STRING
       },
-      birthday: {
-        type: Sequelize.DATE
-      },
-      color: {
-        type: Sequelize.STRING
-      },
       teamId: {
         type: Sequelize.INTEGER
       },
