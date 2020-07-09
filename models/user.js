@@ -44,6 +44,9 @@ module.exports = function(sequelize, DataTypes) {
         birthday: {
           type: DataTypes.DATE,
         },
+        nickName: {
+            type: DataTypes.STRING,
+          },
         color: {
           type: DataTypes.STRING,
         },
@@ -63,6 +66,7 @@ module.exports = function(sequelize, DataTypes) {
       models.user.hasMany(models.goal);
       models.user.belongsTo (models.team);
     }
+
 
     // validPassword definition to validate password at user login
     user.prototype.validPassword = function(passwordTyped) {

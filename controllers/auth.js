@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../models');
 const passport = require("../config/ppConfig");
+let message = "Hello! I've been using Project Tracker to keep track of all of the goals I share with my team. I'd like for you to join me! You can sign up here: "
 
  
 const client = new SMTPClient({
@@ -35,14 +36,17 @@ router.post('/team_register', function(req, res) {
             console.log("Yay, you made a team! 👏🏼")
             client.send(
                 {
-                    text: 'new fix',
-                    from: 'gmailuser',
+                    text: `${message}`,
+                    from: 'Join me in Project Tracker!',
                     to: `${req.body.email}`,
         
                     subject: 'testing emailjs',
                 }, (err, message) => {
                 console.log(err, "🎷" || message);
             })
+            db.user.findOne().then(function(user) {
+                team.add(user);
+            });
             res.redirect('/profile')
         } else {
             console.log("That name is taken 🖕🏼")
@@ -67,8 +71,11 @@ router.post('/register', function(req, res) {
         where: {
             email: req.body.email
         }, defaults: {
-            name: req.body.name,
-            password: req.body.password
+            password: req.body.password,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            nickName: req.body.nickName,
+            birthday: req.body.birthday
         }
     }).then(function([user, created]) {
         // if user was created
