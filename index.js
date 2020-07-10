@@ -64,20 +64,6 @@ app.use('/project', require('./controllers/project'));
 app.use('/milestone', require('./controllers/milestone'));
 
 
-app.get('/:team', isLoggedIn, function(req, res) {
-    //find team where id = req.params.team
-    db.team.findOne({
-        where: {
-            id: req.params.team
-        },
-    })
-    res.render('team', {team: db.team,
-                        users: db.team.user, 
-                        goals: db.team.goal,
-                        projects: db.goal.project,
-                        milestones: db.project.milestone})
-})
-
 
 app.listen(process.env.PORT || 3000, function() {
     console.log(`listening to port ${process.env.PORT} 🎷🐍`)

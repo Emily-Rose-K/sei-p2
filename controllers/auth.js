@@ -57,17 +57,6 @@ router.post('/team_register', function(req, res) {
     })
 })
 
-
-// register get route
-router.get('/register/:id', function(req, res) {
-    db.team.findOne({
-        where: {
-           id: req.params.id
-        }
-    }).then(function(team) {
-        res.render('auth/register', {team});
-    })
-})
 // register post route
 router.post('/register', function(req, res) {
     db.team.findOne({
@@ -145,6 +134,17 @@ router.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
 });
+
+// register get route
+router.get('/register/:id', function(req, res) {
+    db.team.findOne({
+        where: {
+           id: req.params.id
+        }
+    }).then(function(team) {
+        res.render('auth/register', {team});
+    })
+})
 
 router.get('/:team', function(req, res) {
     db.team.findOne({
