@@ -9,9 +9,9 @@ module.exports = (sequelize, DataTypes) => {
     isDone: DataTypes.BOOLEAN
   }, {});
   project.associate = function(models) {
-    models.project.belongsTo(models.user)
-    models.project.belongsTo(models.goal)
     models.project.hasMany(models.milestone)
+    models.project.belongsTo(models.goal)
+    models.project.belongsTo(models.user)
   };
   return project;
 };

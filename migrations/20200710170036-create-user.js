@@ -20,9 +20,6 @@ module.exports = {
       teamId: {
         type: Sequelize.INTEGER
       },
-      email: {
-        type: Sequelize.STRING
-      },
       password: {
         type: Sequelize.STRING
       },

@@ -34,9 +34,6 @@ router.post('/team_register', function(req, res) {
         //if team created
         if(created) {
             console.log("Yay, you made a team! 👏🏼")
-            // find the current user
-            // find the current team
-            // add that user to the team that was created.
             client.send(
                 {
                     text: `${message}`,
@@ -47,10 +44,7 @@ router.post('/team_register', function(req, res) {
                 }, (err, message) => {
                 console.log(err, "🎷" || message);
             })
-            //find team
-       
-            // redirect to team id
-            res.redirect(`/${team.id}`)
+            res.redirect(`/auth/register/${team.id}`)
         } else {
             console.log("That name is taken 🖕🏼")
             req.flash(`Looks like there is already a team called ${req.body.name}, try a different name.`)
@@ -65,27 +59,37 @@ router.post('/team_register', function(req, res) {
 
 
 // register get route
-router.get('/register', function(req, res) {
-    res.render('auth/register');
+router.get('/register/:id', function(req, res) {
+    db.team.findOne({
+        where: {
+           id: req.params.id
+        }
+    }).then(function(team) {
+        res.render('auth/register', {team});
+    })
 })
 // register post route
 router.post('/register', function(req, res) {
-    db.user.findOrCreate({
+    db.team.findOne({
         where: {
-            email: req.body.email
-        }, defaults: {
-            password: req.body.password,
+            id: req.body.team
+        }
+    })
+    .then(function(team) {
+        db.user.create({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
-            nickName: req.body.nickName,
-            birthday: req.body.birthday
-        }
-    }).then(function([user, created]) {
+            email: req.body.email,
+            password: req.body.password
+        }) 
+    })
+    .then(function([user, created]) {
         // if user was created
         if (created) {
+            team.addUser(user)
             console.log("User created! 🎉");
             passport.authenticate('local', {
-                successRedirect: '/auth/team_register',
+                successRedirect: res.redirect(`/${user.teamId}`),
                 successFlash: 'Thanks for signing up!'
             })(req, res);
         } else {
@@ -126,10 +130,12 @@ router.post('/login', function(req, res, next) {
             req.flash('success', 'You are validated and logged in.');
             // if success save session and redirect user
             req.session.save(function() {
-                //find team id
-                
-                //redirect to team id
-                return res.redirect('/team')
+                db.team.findOne({
+                    where: {
+                        teamId: req.user.teamId
+                    }, 
+                }) 
+                res.redirect(`/${user.teamId}`)
             });
         })
     })(req, res, next);
@@ -139,6 +145,17 @@ router.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
 });
+
+router.get('/:team', function(req, res) {
+    db.team.findOne({
+        where: {
+            id: req.params.team
+        }, 
+        include: [db.user, db.goal]
+    }).then(function(team) {
+        res.render('team', {team})
+    })
+})
 
 
 // export router

@@ -9,8 +9,8 @@ module.exports = (sequelize, DataTypes) => {
     projectId: DataTypes.INTEGER
   }, {});
   milestone.associate = function(models) {
-    models.milestone.belongsTo(models.user)
     models.milestone.belongsTo(models.project)
+    models.milestone.belongsTo(models.user)
   };
   return milestone;
 };

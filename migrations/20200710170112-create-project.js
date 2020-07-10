@@ -14,9 +14,6 @@ module.exports = {
       dateDue: {
         type: Sequelize.DATEONLY
       },
-      owner: {
-        type: Sequelize.STRING
-      },
       goalId: {
         type: Sequelize.INTEGER
       },
