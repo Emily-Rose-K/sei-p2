@@ -39,7 +39,6 @@ router.post('/team_register', function(req, res) {
                     text: `${message}`,
                     from: 'Join me in Project Tracker!',
                     to: `${req.body.email}`,
-        
                     subject: 'testing emailjs',
                 }, (err, message) => {
                 console.log(err, "🎷" || message);
@@ -58,38 +57,45 @@ router.post('/team_register', function(req, res) {
 })
 
 // register post route
-router.post('/register', function(req, res) {
+router.post('/register', function(req, res, next) {
+    console.log(`${req.body.team} ✨✨✨✨✨✨✨✨✨`)
     db.team.findOne({
         where: {
             id: req.body.team
         }
     })
     .then(function(team) {
-        db.user.create({
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            email: req.body.email,
-            password: req.body.password
-        }) 
-    })
-    .then(function([user, created]) {
-        // if user was created
-        if (created) {
-            team.addUser(user)
-            console.log("User created! 🎉");
-            passport.authenticate('local', {
-                successRedirect: res.redirect(`/${user.teamId}`),
-                successFlash: 'Thanks for signing up!'
-            })(req, res);
-        } else {
-            console.log("User email already exists 🚫.");
-            req.flash('error', 'Error: email already exists for user. Try again.');
+        console.log(`${team}`)
+        db.user.findOrCreate({
+            where: {
+                email: req.body.email,
+            },
+            defaults: {
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                password: req.body.password
+            }
+        })
+        .then(function([user, created]) {
+            // if user was created
+            if (created) {
+                team.addUser(user)
+                console.log("User created! 🎉");
+                console.log(`${user.teamId}🍕🍕🍕🍕🍕🍕`)
+                passport.authenticate('local', {
+                    successRedirect: res.redirect(`/auth/${team.id}`),
+                    successFlash: 'Thanks for signing up!'
+                })(req, res, next);
+            } else {
+                console.log("User email already exists 🚫.");
+                req.flash('error', 'Error: email already exists for user. Try again.');
+                res.redirect('/auth/register');
+            }
+        }).catch(function(err) {
+            console.log(`Error found. \nMessage: ${err.message}. \nPlease review - ${err}`);
+            req.flash('error', err.message);
             res.redirect('/auth/register');
-        }
-    }).catch(function(err) {
-        console.log(`Error found. \nMessage: ${err.message}. \nPlease review - ${err}`);
-        req.flash('error', err.message);
-        res.redirect('/auth/register');
+        })
     })
 })
 
@@ -111,7 +117,6 @@ router.post('/login', function(req, res, next) {
         if (error) {
             return next(error);
         }
-
         req.login(user, function(error) {
             // if error move to error
             if (error) next(error);
@@ -147,6 +152,7 @@ router.get('/register/:id', function(req, res) {
 })
 
 router.get('/:team', function(req, res) {
+    
     db.team.findOne({
         where: {
             id: req.params.team
