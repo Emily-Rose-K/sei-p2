@@ -129,7 +129,7 @@ router.post('/login', function(req, res, next) {
                         teamId: req.user.teamId
                     }, 
                 }) 
-                res.redirect(`/${user.teamId}`)
+                res.redirect(`/auth/${user.teamId}`)
             });
         })
     })(req, res, next);
@@ -152,7 +152,6 @@ router.get('/register/:id', function(req, res) {
 })
 
 router.get('/:team', function(req, res) {
-    
     db.team.findOne({
         where: {
             id: req.params.team
@@ -162,6 +161,7 @@ router.get('/:team', function(req, res) {
         res.render('team', {team})
     })
 })
+
 
 
 // export router
