@@ -18,19 +18,16 @@ router.get('/new/:team', function (req, res) {
 // create goal
 
 router.post('/new', function (req, res) {
-    db.team.findOne({
-        where: {
-            id: req.body.id
-        }
-    })
-    .then(function(team) {
-        db.team.createGoal ({
+        db.goal.create ({
             description: req.body.description,
-            dueDate: req.body.dueDate
+            dateDue: req.body.dateDue,
+            teamId: req.body.team
         })
-        res.redirect(`/auth/${team.id}`)
+        .then(function() {
+            res.redirect(`/auth/${req.body.team}`)
+        })
     })
-})
+
 
 
 // delete goal

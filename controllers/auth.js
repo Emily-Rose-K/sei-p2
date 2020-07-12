@@ -157,8 +157,9 @@ router.get('/:team', function(req, res) {
             id: req.params.team
         }, 
         include: [db.user, db.goal]
-    }).then(function(team) {
-        res.render('team', {team})
+    }).then(function(team, goal, user) {
+        console.log(team.goals, "✨")
+        res.render('team', {team, goal, user})
     })
 })
 
