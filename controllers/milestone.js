@@ -29,6 +29,15 @@ router.post('/new', function(req, res) {
 })
 
 // delete milestone
+router.delete('delete/:id', function(req, res) {
+    db.milestone.findOne({
+        where: {
+            id: milestone.id
+        }.then(function(){
+            res.send(`This will delted goal ${milestone.id}`)
+        })
+    })
+})
 
 // update milestone
 

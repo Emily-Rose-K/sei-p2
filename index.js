@@ -18,6 +18,10 @@ const passport = require('./config/ppConfig');
 const db = require('./models');
 const isLoggedIn = require('./middleware/isLoggedIn');
 
+
+var methodOverride = require('method-override');
+app.use(methodOverride('_method'));
+
 app.use(helmet());
 
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
