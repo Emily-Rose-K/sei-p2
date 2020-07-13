@@ -23,8 +23,7 @@ const  SlackBot  = require('slackbots');
 const axios = require('axios');
 
 
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
+app.use(Express.json());
 app.post('/', (req, res) => {
 var data = {form: {
       token: process.env.SLACK_AUTH_TOKEN,
