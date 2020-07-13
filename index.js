@@ -19,8 +19,6 @@ const flash = require('connect-flash');
 const passport = require('./config/ppConfig');
 const db = require('./models');
 const isLoggedIn = require('./middleware/isLoggedIn');
-const  SlackBot  = require('slackbots');
-const axios = require('axios');
 
 
 app.use(Express.json());
