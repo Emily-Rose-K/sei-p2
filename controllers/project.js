@@ -6,14 +6,26 @@ const db = require('../models');
 
 
 // create project
-router.get('/new', function (req, res) {
-    res.render('project/new');
+router.get('/new/:team', function (req, res) {
+    db.goal.findOne({
+        where: {
+            teamId: req.params.team
+        }
+    }).then(function(goal) {
+        res.render('project/new', {goal});
+    })
 })
 
 router.post('/new', function (req, res) {
-    // find the goal that project is attached to 
-    // create project on that goal
-    // rednder profile 
+    db.project.create({
+        name: req.body.name,
+        dateDue: req.body.dateDue,
+        goalId: req.body.goal,
+        teamId: req.body.team,
+        isDone: req.body.isDone
+    }).then(function() {
+        res.redirect(`/auth/${req.body.team}`)
+    })
 })
 
 // delete project

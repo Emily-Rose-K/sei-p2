@@ -14,17 +14,20 @@ module.exports = {
       dateDue: {
         type: Sequelize.DATEONLY
       },
+      owner: {
+        type: Sequelize.STRING
+      },
       goalId: {
         type: Sequelize.INTEGER
       },
       userId: {
         type: Sequelize.INTEGER
       },
-      teamId: {
-        type: Sequelize.INTEGER
-      },
       isDone: {
         type: Sequelize.BOOLEAN
+      },
+      teamId: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

@@ -1,15 +1,18 @@
 <h1>Add a project to your goal</h1>
 
 
-<form action="/pro" method="POST">
+<form action="/project/new" method="POST">
 <div class="form-group">
-    <label for="description">What is your new project?</label>
-    <input id="description" class="form-control" type="text" name="description">
+    <label for="name">What is your new project?</label>
+    <input id="name" class="form-control" type="text" name="name">
 </div>
 <div class="form-group">
-    <label for="due-date">When should you finish this project by?</label>
-    <input id="due-date" class="form-control" type="date" name="due-date">
+    <label for="dateDue">When should you finish this project by?</label>
+    <input id="dateDue" class="form-control" type="date" name="dateDue">
 </div>
+<input type="hidden" name="team" value="<%= goal.teamId %>">
+<input type="hidden" name="goal" value="<%= goal.id %>">
+<input type="hidden" name="isDone" value="false">
 <input class="btn" type="submit">
 </form>
 

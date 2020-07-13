@@ -1,14 +1,17 @@
 <h1>Add a milestone to your project</h1>
 
 
-<form action="/pro" method="POST">
-<div class="form-group">
-    <label for="name">What is your new milestone?</label>
-    <input id="name" class="form-control" type="text" name="name">
-</div>
-<div class="form-group">
-    <label for="due-date">When should you complete this milestone?</label>
-    <input id="due-date" class="form-control" type="date" name="due-date">
-</div>
+<form action="/milestone/new" method="POST">
+    <div class="form-group">
+        <label for="description">What is your milestone?</label>
+        <input id="description" class="form-control" type="text" name="description">
+    </div>
+    <div class="form-group">
+        <label for="dateDue">When should you complete this milestone?</label>
+        <input id="dateDue" class="form-control" type="date" name="dateDue">
+    </div>
+<input type="hidden" name="project" value="<%= project.id %>">
+<input type="hidden" name="team" value="<%= project.teamId %>">
+<input type="hidden" name="isDone" value="false">
 <input class="btn" type="submit">
 </form>

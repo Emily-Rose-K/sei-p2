@@ -15,6 +15,7 @@ router.get('/new/:team', function (req, res) {
     })
 })
 
+
 // create goal
 
 router.post('/new', function (req, res) {

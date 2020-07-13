@@ -17,6 +17,9 @@ module.exports = {
       teamId: {
         type: Sequelize.INTEGER
       },
+      teamId: {
+        type: Sequelize.INTEGER
+      },
       isDone: {
         type: Sequelize.BOOLEAN
       },

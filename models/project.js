@@ -5,12 +5,13 @@ module.exports = (sequelize, DataTypes) => {
     dateDue: DataTypes.DATEONLY,
     goalId: DataTypes.INTEGER,
     userId: DataTypes.INTEGER,
-    isDone: DataTypes.BOOLEAN
+    isDone: DataTypes.BOOLEAN,
+    teamId: DataTypes.INTEGER
   }, {});
   project.associate = function(models) {
-    models.project.hasMany(models.milestone)
+    models.project.belongsTo(models.team)
     models.project.belongsTo(models.goal)
-    models.project.belongsTo(models.user)
+    models.project.hasMany(models.milestone)
   };
   return project;
 };

@@ -23,6 +23,9 @@ module.exports = {
       userId: {
         type: Sequelize.INTEGER
       },
+      teamId: {
+        type: Sequelize.INTEGER
+      },
       projectId: {
         type: Sequelize.INTEGER
       },

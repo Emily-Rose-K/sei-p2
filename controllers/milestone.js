@@ -6,14 +6,26 @@ const db = require('../models');
 
 
 // create milestone
-router.get('/new', function (req, res) {
-    res.render('milestone/new');
+router.get('/new/:team', function (req, res) {
+    db.project.findOne({
+        where: {
+            teamId: req.params.team
+        }
+    }).then(function(project) {
+        res.render('milestone/new', {project});
+    })
 })
 
 router.post('/new', function(req, res) {
-    //find project milestone is on
-    //add milestone
-    //render project page.
+    db.milestone.create({
+        description: req.body.description,
+        dateDue: req.body.dateDue,
+        projectId: req.body.project,
+        teamId: req.body.team,
+        isDone: req.body.isDone
+    }).then(function() {
+        res.redirect(`/auth/${req.body.team}`)
+    })
 })
 
 // delete milestone
