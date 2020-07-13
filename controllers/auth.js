@@ -34,7 +34,7 @@ router.post('/team_register', function(req, res) {
     }).then(function([team, created]) {
         //if team created
         if(created) {
-            console.log("Yay, you made a team! 👏🏼")
+            console.log(`Yay, you made a team! 👏🏼 ${team.id}`)
             client.send(
                 {
                     text: `${message}`,
@@ -59,7 +59,6 @@ router.post('/team_register', function(req, res) {
 
 // register post route
 router.post('/register', function(req, res, next) {
-    console.log(`${req.body.team} ✨✨✨✨✨✨✨✨✨`)
     db.team.findOne({
         where: {
             id: req.body.team

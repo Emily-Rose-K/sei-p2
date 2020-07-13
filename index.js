@@ -2,12 +2,11 @@
 require('dotenv').config();
 
 const Express = require('express');
-var request = require('request')
 const app = Express();
 const ejsLayouts = require('express-ejs-layouts');
 var methodOverride = require('method-override');
 app.use(methodOverride('_method'));
-
+const request = require("request");
 app.use(Express.urlencoded({extended: false})); 
 app.use(Express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
@@ -20,8 +19,23 @@ const flash = require('connect-flash');
 const passport = require('./config/ppConfig');
 const db = require('./models');
 const isLoggedIn = require('./middleware/isLoggedIn');
+const  SlackBot  = require('slackbots');
+const axios = require('axios');
 
 
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+app.post('/', (req, res) => {
+var data = {form: {
+      token: process.env.SLACK_AUTH_TOKEN,
+      channel: "#general",
+      text: "Hi! :wave: \n I'm your new bot."
+    }};
+request.post('https://slack.com/api/chat.postMessage', data, function (error, response, body) {
+      // Sends welcome message
+      res.json();
+    });
+});
 
 
 
