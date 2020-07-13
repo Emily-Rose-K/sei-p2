@@ -1,4 +1,3 @@
-
 <h2> <%= team.name %> Goals</h2>
 <a href="/goal/new/<%=team.id%>"> Add Goal</a>
 
@@ -6,11 +5,14 @@
   <ul>
     <% team.goals.forEach(function(goal) { %>
     <li>
-      <%= goal.description %>
-      <%= goal.dateDue %>
-      <a href="/goal/edit<%= team.id %>">Edit</a>
-      <form method="POST" action="/goal/delete/<%= goal.id %>">
+      <%= goal.description %> by <%= goal.dateDue %>
+      <form method="PUT" action="/goal/edit/<%= goal.id %>">
+        <input type="submit" value="edit">
+      </form>
+      <form method="POST" action="/goal/delete/<%= goal.id %>/?_method=DELETE">
         <input type="submit" value="trash">
+        <input type="hidden" name="team" value="<%= team.id %>">
+
       </form>
       </a>
       <a href="/project/new/<%= team.id %>">New</a>
@@ -24,11 +26,11 @@
   <% team.projects.forEach(function(project) { %>
     <ul>
       <li>
-        <%= project.name %>
-        <%= project.dateDue %>
+        <%= project.name %> by <%= project.dateDue %>
         <a href="/milestone/new/<%= team.id%>">Add Milestone</a>
-        <form method="POST" action="/project/delete/<%= project.id %>">
+        <form method="POST" action="/project/<%= project.id %>/?_method=DELETE">
           <input type="submit" value="trash">
+          <input type="hidden" name="team" value="<%= team.id %>">
         </form>
       </li>
     </ul>
@@ -41,16 +43,16 @@
     <% team.milestones.forEach(function(milestone) { %>
     <li>
       <% if(milestone.isDone) { %>
-        <%= milestone.description %> 
-        <%= milestone.dateDue %>
-        <form method="POST" action="/milestone/delete/<%= milestone.id %>">
+        <%= milestone.description %> by <%= milestone.dateDue %>
+        <form method="POST" action="/milestone/<%= milestone.id %>/?_method=DELETE">
           <input type="submit" value="trash">
+          <input type="hidden" name="team" value="<%= team.id %>">
         </form>
       <% } else { %>
-            <%= milestone.description %> 
-            <%= milestone.dateDue %>   
-            <form method="POST" action="/milestone/delete/<%= milestone.id %>">
+            <%= milestone.description %> by<%= milestone.dateDue %>   
+            <form method="POST" action="/milestone/<%= milestone.id%>/?_method=DELETE">
               <input type="submit" value="trash">
+              <input type="hidden" name="team" value="<%= team.id %>">
             </form>
         <% } %>
       <% }) %>

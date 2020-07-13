@@ -5,11 +5,6 @@ router.use(methodOverride('_method'));
 const db = require('../models');
 
 
-
-
-
-
-
 router.get('/new/:team', function (req, res) {
     db.team.findOne({
         where: {

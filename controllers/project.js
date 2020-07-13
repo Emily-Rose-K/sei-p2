@@ -29,13 +29,14 @@ router.post('/new', function (req, res) {
 })
 
 // delete project
-router.delete('delete/:id', function(req, res) {
-    db.project.findOne({
+router.delete('/:id', function(req, res) {
+    db.project.destroy({
         where: {
-            id: project.id
-        }.then(function(){
-            res.send(`This will delted project ${project.id}`)
-        })
+            id: req.params.id
+        },
+    })
+    .then(function(){
+        res.redirect(`/auth/${req.body.team}`)
     })
 })
 

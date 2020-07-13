@@ -10,7 +10,7 @@ router.get('/new/:team', function (req, res) {
     db.project.findOne({
         where: {
             teamId: req.params.team
-        }
+        },
     }).then(function(project) {
         res.render('milestone/new', {project});
     })
@@ -29,13 +29,13 @@ router.post('/new', function(req, res) {
 })
 
 // delete milestone
-router.delete('delete/:id', function(req, res) {
-    db.milestone.findOne({
+router.delete('/:id', function(req, res) {
+    db.milestone.destroy({
         where: {
-            id: milestone.id
-        }.then(function(){
-            res.send(`This will delted goal ${milestone.id}`)
-        })
+            id: req.params.id
+        },
+    }).then(function(){
+        res.redirect(`/auth/${req.body.team}`)
     })
 })
 

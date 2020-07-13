@@ -4,6 +4,8 @@ require('dotenv').config();
 const Express = require('express');
 const app = Express();
 const ejsLayouts = require('express-ejs-layouts');
+var methodOverride = require('method-override');
+app.use(methodOverride('_method'));
 
 app.use(Express.urlencoded({extended: false})); 
 app.use(Express.static(__dirname + '/public'));
@@ -17,10 +19,6 @@ const flash = require('connect-flash');
 const passport = require('./config/ppConfig');
 const db = require('./models');
 const isLoggedIn = require('./middleware/isLoggedIn');
-
-
-var methodOverride = require('method-override');
-app.use(methodOverride('_method'));
 
 app.use(helmet());
 
