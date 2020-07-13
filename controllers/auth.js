@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../models');
 const passport = require("../config/ppConfig");
+
 let message = "Hello! I've been using Project Tracker to keep track of all of the goals I share with my team. I'd like for you to join me! You can sign up here: "
 
  

@@ -2,6 +2,7 @@
 require('dotenv').config();
 
 const Express = require('express');
+var request = require('request')
 const app = Express();
 const ejsLayouts = require('express-ejs-layouts');
 var methodOverride = require('method-override');
@@ -19,6 +20,11 @@ const flash = require('connect-flash');
 const passport = require('./config/ppConfig');
 const db = require('./models');
 const isLoggedIn = require('./middleware/isLoggedIn');
+
+
+
+
+
 
 app.use(helmet());
 
