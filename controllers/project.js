@@ -40,6 +40,19 @@ router.delete('/:id', function(req, res) {
     })
 })
 
+
 // update project
+router.put('/:id'), function(req, res) {
+    db.project.update({
+        where: {
+            id: project.id
+        },
+    })
+    .then(function(project){
+        project.descreption = req.params.description
+        project.dateDue = req.params.dateDue
+    })
+    res.redirect(`/auth/${req.body.team}`)
+}
 
 module.exports = router;

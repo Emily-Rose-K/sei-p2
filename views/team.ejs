@@ -6,13 +6,10 @@
     <% team.goals.forEach(function(goal) { %>
     <li>
       <%= goal.description %> by <%= goal.dateDue %>
-      <form method="PUT" action="/goal/edit/<%= goal.id %>">
-        <input type="submit" value="edit">
-      </form>
+   
       <form method="POST" action="/goal/delete/<%= goal.id %>/?_method=DELETE">
         <input type="submit" value="trash">
         <input type="hidden" name="team" value="<%= team.id %>">
-
       </form>
       </a>
       <a href="/project/new/<%= team.id %>">New</a>
@@ -28,6 +25,7 @@
       <li>
         <%= project.name %> by <%= project.dateDue %>
         <a href="/milestone/new/<%= team.id%>">Add Milestone</a>
+        <a href="/project/edit/<%= team.id%>">Edit Project</a>
         <form method="POST" action="/project/<%= project.id %>/?_method=DELETE">
           <input type="submit" value="trash">
           <input type="hidden" name="team" value="<%= team.id %>">
