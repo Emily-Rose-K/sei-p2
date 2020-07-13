@@ -43,6 +43,17 @@ router.delete('/delete/:id', function(req, res) {
     })
 })
 
+
+router.get('/edit/:id', function(req,res) {
+    db.goal.findOne({
+        where: {
+            id: req.params.id
+        }
+    }).then(function(goal) {
+        res.render('goal/edit', {goal});
+    })
+})
+
 // update goal
 router.put('/:id', function(req, res) {
     db.goal.findOne({

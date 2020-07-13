@@ -39,6 +39,16 @@ router.delete('/:id', function(req, res) {
     })
 })
 
+router.get('/milestone/:id', function(req,res) {
+    db.milestone.findOne({
+        where: {
+            id: req.params.id
+        }
+    }).then(function(project) {
+        res.render('milestone/edit', {milestone});
+    })
+})
+
 // update milestone
 router.put('/:id', function(req, res) {
     console.log("⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️")
