@@ -40,5 +40,22 @@ router.delete('/:id', function(req, res) {
 })
 
 // update milestone
+router.put('/:id', function(req, res) {
+    console.log("⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️")
+    db.milestone.findOne({
+        where: {
+        id: req.params.id 
+        } 
+    })
+    .then(function (milestone) {
+        if (milestone) {
+            milestone.update({
+                description: req.body.description,
+                dateDue: req.body.dateDue
+            })
+            res.redirect(`/auth/${req.body.team}`)
+        }
+    })
+})
 
 module.exports = router;

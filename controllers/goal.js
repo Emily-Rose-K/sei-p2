@@ -44,6 +44,22 @@ router.delete('/delete/:id', function(req, res) {
 })
 
 // update goal
+router.put('/:id', function(req, res) {
+    db.goal.findOne({
+        where: {
+        id: req.params.id 
+        } 
+    })
+    .then(function (goal) {
+        if (goal) {
+            goal.update({
+                description: req.body.description,
+                dateDue: req.body.dateDue
+            })
+            res.redirect(`/auth/${req.body.team}`)
+        }
+    })
+})
 
 
 

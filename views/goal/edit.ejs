@@ -1,0 +1,7 @@
+<form method="POST" action="/goal/<%= goal.id %>/?_method=PUT">
+    <label>Description</label>
+    <input type="text" name="description" value="<%= goal.description %>">
+    <input type="text" name="dateDue" value="<%= goal.dateDue %>">
+    <input type="hidden" name="team" value="<%= goal.teamId %>">
+    <input type="submit">
+</form>

@@ -20,8 +20,6 @@ const passport = require('./config/ppConfig');
 const db = require('./models');
 const isLoggedIn = require('./middleware/isLoggedIn');
 
-socket = io.listen(process.env.PORT);
-
 
 app.use(Express.json());
 app.post('/', (req, res) => {

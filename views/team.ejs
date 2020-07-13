@@ -6,7 +6,7 @@
     <% team.goals.forEach(function(goal) { %>
     <li>
       <%= goal.description %> by <%= goal.dateDue %>
-   
+      <a href="/goal/edit/<%= goal.id%>">Edit Goal</a>
       <form method="POST" action="/goal/delete/<%= goal.id %>/?_method=DELETE">
         <input type="submit" value="trash">
         <input type="hidden" name="team" value="<%= team.id %>">
@@ -42,12 +42,14 @@
     <li>
       <% if(milestone.isDone) { %>
         <%= milestone.description %> by <%= milestone.dateDue %>
+        <a href="/milestone/edit/<%= milestone.id%>">Edit Milestone</a>
         <form method="POST" action="/milestone/<%= milestone.id %>/?_method=DELETE">
           <input type="submit" value="trash">
           <input type="hidden" name="team" value="<%= team.id %>">
         </form>
       <% } else { %>
             <%= milestone.description %> by<%= milestone.dateDue %>   
+            <a href="/milestone/edit/<%= milestone.id%>">Edit Milestone</a>
             <form method="POST" action="/milestone/<%= milestone.id%>/?_method=DELETE">
               <input type="submit" value="trash">
               <input type="hidden" name="team" value="<%= team.id %>">

@@ -1,0 +1,8 @@
+<form method="POST" action="/milestone/<%= milestone.id %>/?_method=PUT">
+    <label>Description</label>
+    <input type="text" name="description" value="<%= milestone.description %>">
+    <label>Due Date:</label>
+    <input type="text" name="dateDue" value="<%= milestone.dateDue %>">
+    <input type="hidden" name="team" value="<%= milestone.teamId %>">
+    <input type="submit">
+</form>

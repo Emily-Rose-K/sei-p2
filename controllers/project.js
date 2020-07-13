@@ -51,7 +51,6 @@ router.get('/edit/:id', function(req,res) {
 
 // update project
 router.put('/:id', function(req, res) {
-    console.log("⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️")
     db.project.findOne({
         where: {
         id: req.params.id 
