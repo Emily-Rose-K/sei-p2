@@ -1,7 +1,8 @@
-<form method="POST" action="/project/<%= team.id %>/?_method=PUT">
+<form method="POST" action="/project/<%= project.id %>/?_method=PUT">
     <label>Description</label>
-    <input type="text" name="description" value="<%= project.name %>">
+    <input type="text" name="name" value="<%= project.name %>">
     <label>Due Date:</label>
     <input type="text" name="dateDue" value="<%= project.dateDue %>">
+    <input type="hidden" name="team" value="<%= project.teamId %>">
     <input type="submit">
 </form>

@@ -24,8 +24,8 @@
     <ul>
       <li>
         <%= project.name %> by <%= project.dateDue %>
-        <a href="/milestone/new/<%= team.id%>">Add Milestone</a>
-        <a href="/project/edit/<%= team.id%>">Edit Project</a>
+        <a href="/milestone/new/<%= project.id%>">Add Milestone</a>
+        <a href="/project/edit/<%= project.id%>">Edit Project</a>
         <form method="POST" action="/project/<%= project.id %>/?_method=DELETE">
           <input type="submit" value="trash">
           <input type="hidden" name="team" value="<%= team.id %>">

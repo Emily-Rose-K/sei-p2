@@ -3,8 +3,6 @@ const router = express.Router();
 const db = require('../models');
 
 
-
-
 // create project
 router.get('/new/:team', function (req, res) {
     db.goal.findOne({
@@ -40,19 +38,39 @@ router.delete('/:id', function(req, res) {
     })
 })
 
+router.get('/edit/:id', function(req,res) {
+    db.project.findOne({
+        where: {
+            id: req.params.id
+        }
+    }).then(function(project) {
+        res.render('project/edit', {project});
+    })
+})
+
 
 // update project
-router.put('/:id'), function(req, res) {
-    db.project.update({
+router.put('/:id', function(req, res) {
+    console.log("⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️")
+    db.project.findOne({
         where: {
-            id: project.id
-        },
+        id: req.params.id 
+        } 
     })
-    .then(function(project){
-        project.descreption = req.params.description
-        project.dateDue = req.params.dateDue
+    .then(function (project) {
+        if (project) {
+            project.update({
+                name: req.body.name,
+                dateDue: req.body.dateDue
+            })
+            res.redirect(`/auth/${req.body.team}`)
+        }
     })
-    res.redirect(`/auth/${req.body.team}`)
-}
+})
+
+
 
 module.exports = router;
+
+
+
