@@ -1,19 +1,10 @@
-const { SMTPClient } = require('emailjs')
+
 const express = require('express');
 const router = express.Router();
 const db = require('../models');
 const passport = require("../config/ppConfig");
 
-let message = "Hello! I've been using Project Tracker to keep track of all of the goals I share with my team. I'd like for you to join me! You can sign up here: "
 
- 
-const client = new SMTPClient({
-    user: process.env.GMAILUSER,
-    password: process.env.GMAILPSWD,
-    host: 'smtp.gmail.com',
-    port: '465',
-    ssl: true,
-});
 
 //get started flow
 router.get('/get_started', function(req, res) {
@@ -35,15 +26,6 @@ router.post('/team_register', function(req, res) {
         //if team created
         if(created) {
             console.log(`Yay, you made a team! 👏🏼 ${team.id}`)
-            client.send(
-                {
-                    text: `${message}`,
-                    from: 'Join me in Project Tracker!',
-                    to: `${req.body.email}`,
-                    subject: 'testing emailjs',
-                }, (err, message) => {
-                console.log(err, "🎷" || message);
-            })
             res.redirect(`/auth/register/${team.id}`)
         } else {
             console.log("That name is taken 🖕🏼")
@@ -56,6 +38,35 @@ router.post('/team_register', function(req, res) {
         res.redirect('/auth/register');
     })
 })
+
+// team join get route
+router.get('/team_join', function(req, res) {
+    res.render('auth/team_join');
+})
+
+router.post('/team_join', function(req, res) {
+    db.team.findOne({
+        where: {
+            name: req.body.name
+        }
+    }).then(function(team){
+        if (team) {
+            console.log("Team was found! 🍕🍕🍕🍕🍕🍕")
+            res.redirect(`/auth/register/${team.id}`)
+        } else {
+            console.log("That team doesn't exist yet. 🖕🏼")
+            req.flash(`Looks like there isn't a team called ${req.body.name}.`)
+            res.redirect('/auth/join_team');
+        }
+    }).catch(function(err) {
+        console.log(`Error found. \nMessage: ${err.message}. \nPlease review - ${err}`);
+        req.flash('error', err.message);
+        res.redirect('/auth/register');
+    })
+})
+
+
+
 
 // register post route
 router.post('/register', function(req, res, next) {

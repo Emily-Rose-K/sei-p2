@@ -39,13 +39,30 @@ router.delete('/:id', function(req, res) {
     })
 })
 
-router.get('/milestone/:id', function(req,res) {
+router.get('/edit/:id', function(req,res) {
     db.milestone.findOne({
         where: {
             id: req.params.id
         }
-    }).then(function(project) {
+    }).then(function(milestone) {
         res.render('milestone/edit', {milestone});
+    })
+})
+
+
+// complete milestone
+router.put('/complete/:id', function(req, res) {
+    db.milestone.findOne({
+        where: {
+            id: req.params.id
+        }
+    })
+    .then(function (milestone) {
+        milestone.update({
+            isDone: true,
+            completedAt: Date.now()
+        })
+        res.redirect(`/auth/${req.body.team}`)
     })
 })
 
@@ -67,5 +84,9 @@ router.put('/:id', function(req, res) {
         }
     })
 })
+
+
+
+
 
 module.exports = router;

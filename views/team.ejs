@@ -1,5 +1,8 @@
 <h2> <%= team.name %> Goals</h2>
-<a href="/goal/new/<%=team.id%>"> Add Goal</a>
+
+<div class="add">
+  <a href="/goal/new/<%=team.id%>"> Add Goal</a>
+</div>
 
 <div class="list-goals">
   <ul>
@@ -24,8 +27,12 @@
     <ul>
       <li>
         <%= project.name %> by <%= project.dateDue %>
-        <a href="/milestone/new/<%= project.id%>">Add Milestone</a>
-        <a href="/project/edit/<%= project.id%>">Edit Project</a>
+       <div class="add">
+         <a href="/milestone/new/<%= team.id %>">Add Milestone</a>
+       </div> 
+       <div class="edit">
+         <a href="/project/edit/<%= project.id %>">Edit Project</a>
+       </div>
         <form method="POST" action="/project/<%= project.id %>/?_method=DELETE">
           <input type="submit" value="trash">
           <input type="hidden" name="team" value="<%= team.id %>">
@@ -41,20 +48,28 @@
     <% team.milestones.forEach(function(milestone) { %>
     <li>
       <% if(milestone.isDone) { %>
-        <%= milestone.description %> by <%= milestone.dateDue %>
-        <a href="/milestone/edit/<%= milestone.id%>">Edit Milestone</a>
+       <del><%= milestone.description %> completed on <%= milestone.completedAt %></del>
+       <div class="edit">
+         <a href="/milestone/edit/<%= milestone.id%>">Edit Milestone</a>
+       </div>
         <form method="POST" action="/milestone/<%= milestone.id %>/?_method=DELETE">
           <input type="submit" value="trash">
           <input type="hidden" name="team" value="<%= team.id %>">
         </form>
       <% } else { %>
-            <%= milestone.description %> by<%= milestone.dateDue %>   
-            <a href="/milestone/edit/<%= milestone.id%>">Edit Milestone</a>
+            <%= milestone.description %> by <%= milestone.dateDue %> 
+            <div class="edit">
+              <a href="/milestone/edit/<%= milestone.id%>">Edit Milestone</a>
+            </div>
             <form method="POST" action="/milestone/<%= milestone.id%>/?_method=DELETE">
               <input type="submit" value="trash">
               <input type="hidden" name="team" value="<%= team.id %>">
             </form>
-        <% } %>
+            <form method="POST" action="/milestone/complete/<%= milestone.id %>/?_method=PUT">
+              <input type="hidden" name="team" value="<%= milestone.teamId %>">
+              <input type="submit" value="complete">
+            </form>        
+          <% } %>
       <% }) %>
     </li>
   </ul>

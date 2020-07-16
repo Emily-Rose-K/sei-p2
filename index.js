@@ -20,23 +20,6 @@ const passport = require('./config/ppConfig');
 const db = require('./models');
 const isLoggedIn = require('./middleware/isLoggedIn');
 
-
-app.use(Express.json());
-app.post('/', (req, res) => {
-var data = {form: {
-      token: process.env.SLACK_AUTH_TOKEN,
-      channel: "#general",
-      text: "Hi! :wave: \n I'm your new bot."
-    }};
-request.post('https://slack.com/api/chat.postMessage', data, function (error, response, body) {
-      // Sends welcome message
-      res.json();
-    });
-});
-
-
-
-
 app.use(helmet());
 
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
@@ -69,6 +52,8 @@ app.use(function(req, res, next) {
 })
 
 
+
+
 // ROUTES
 
 app.get('/', function(req, res) {
@@ -81,7 +66,6 @@ app.use('/auth', require('./controllers/auth'));
 app.use('/goal', require('./controllers/goal'));
 app.use('/project', require('./controllers/project'));
 app.use('/milestone', require('./controllers/milestone'));
-
 
 
 app.listen(process.env.PORT || 3000, function() {
