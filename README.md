@@ -18,7 +18,7 @@ A project tracker app built for teams to keep track of goals and celebrate accom
 
 
 # Closing Thoughts:
--I wish I had vetted my idea and my models with a TA or instructor sooner, and more thoroughly
--I wish I had spent less time documenting/planning and more time getting my hands dirty
--I wihs I had started playing with more of the slack web-api functionality sooner
+- I wish I had vetted my idea and my models with a TA or instructor sooner, and more thoroughly
+- I wish I had spent less time documenting/planning and more time getting my hands dirty
+- I wihs I had started playing with more of the slack web-api functionality sooner
   - I was able to run a simple script in the week prior to project week and thought creating the bot would be easier than it was
